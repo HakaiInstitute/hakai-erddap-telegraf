@@ -14,7 +14,7 @@ edit .env values. This to check are
   - HOST_URL - hostname to report in plausible with protocol
   - DOMAINS - keys used by plausible to route events see https://plausible.io/docs/events-api#request-body-json-parameters
   - PLAUSIBLE_URL - url to plausible instance 
-  - SENTRY_URL - url to sentry project for monitering up time
+  - SENTRY_DSN - url to sentry project for monitering up time
 
 review telegraf/telegraf.conf. the most important one being
   - `files` under [[inputs.tail]]

@@ -6,15 +6,16 @@ services:
     restart: always
     tty: true
     read_only: false
+    user: telegraf:4
     env_file:
       - .env
     volumes:
-    - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    - ./telegraf/telegraf_GA.conf:/etc/telegraf/telegraf.conf:ro
     - type: bind
-      source: ${LOG_FILE}
+      source: ${LOG_FILE_FOLDER}
       target: /telegraf/log/
     ports:
-    - 8125:8125/udp
+    - 8126:8125/udp # port 8125 conflicts with netdata
     - 8092:8092/udp
     - 8094:8094/tcp
 

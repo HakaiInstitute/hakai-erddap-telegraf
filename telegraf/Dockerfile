@@ -9,9 +9,7 @@ RUN apt-get -q -y update \
   && DEBIAN_FRONTEND=noninteractive apt-get -q clean \
   && rm -rf /var/lib/apt/lists/*
 
-ADD ./send_http_req.py /telegraf/send_http_req.py
 ADD ./send_http_req_GA.py /telegraf/send_http_req_GA.py
-ADD ./send_http_req_sentry.py /telegraf/send_http_req_sentry.py
 
 # Configure trigger for restarting app on log rotation
 RUN rm /etc/incron.allow
