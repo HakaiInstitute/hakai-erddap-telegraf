@@ -12,6 +12,18 @@ SENTRY_CRONS = (
     + "/145d7992e3df09af3614048708523550/"
 )
 
+headers = {"Content-Type": "application/json"}
+json_obj = json.loads(
+    '{"environment": "' + os.environ.get("SENTRY_ENVIRONMENT") + '","status": "ok"}'
+)
+x = requests.post(
+    SENTRY_CRONS,
+    json=json_obj,
+    headers=headers,
+)
+sys.stdout.write(x.text)
+
+
 url = os.environ.get(
     'GA_URL', 'http://www.google-analytics.com/mp/collect')
 secret = os.environ.get(
@@ -31,6 +43,3 @@ for line in sys.stdin:
     }
     x = requests.post(full_url, json=json_obj, headers=headers)
     sys.stdout.write(x.text)
-
-x = requests.get(SENTRY_CRONS + "?environment=" + os.environ.get('SENTRY_ENVIRONMENT') + "&status=ok")
-sys.stdout.write(x.text)
