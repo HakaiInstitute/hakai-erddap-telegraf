@@ -33,7 +33,7 @@ def main():
         x = requests.post(full_url, json=json_obj, headers=headers)
         sys.stdout.write(x.text)
 
-    x = requests.get(SENTRY_CRONS + "?status=ok")
+    x = requests.get(SENTRY_CRONS + "?environment=" + os.environ.get('SENTRY_ENVIRONMENT') + "&status=ok")
     sys.stdout.write(x.text)
 
 if __name__ == "__main__":
