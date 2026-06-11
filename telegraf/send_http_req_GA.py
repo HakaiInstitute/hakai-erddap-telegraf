@@ -2,28 +2,17 @@ import sys
 import requests
 import json
 import os
-from pathlib import Path
-from dotenv import load_dotenv
-import sentry_sdk
-# from sentry_sdk.crons import monitor
-from sentry_sdk.crons import capture_checkin
-from sentry_sdk.crons.consts import MonitorStatus
 
-load_dotenv(Path(__file__).parent / ".env", override=False)
-load_dotenv(override=False)
+SENTRY_MONITOR_SLUG = "hakai-erddap-telegraf-checkin"
+SENTRY_INGEST = "https://o56764.ingest.us.sentry.io"
+SENTRY_CRONS = (
+    SENTRY_INGEST
+    + "/api/4507091651526656/cron/"
+    + SENTRY_MONITOR_SLUG
+    + "/145d7992e3df09af3614048708523550/"
+)
 
-
-
-# @monitor(monitor_slug='hakai-erddap-telegraf-checkin')
 def main():
-    sentry_sdk.init(
-        debug=True,
-        send_default_pii=True,
-    )
-    capture_checkin(
-        monitor_slug="hakai-erddap-telegraf-checkin",
-        status=MonitorStatus.OK,
-    )
     url = os.environ.get(
         'GA_URL', 'http://www.google-analytics.com/mp/collect')
     secret = os.environ.get(
@@ -43,8 +32,9 @@ def main():
         }
         x = requests.post(full_url, json=json_obj, headers=headers)
         sys.stdout.write(x.text)
-    
-    sentry_sdk.flush()
+
+    x = requests.get(SENTRY_CRONS + "?status=ok")
+    sys.stdout.write(x.text)
 
 if __name__ == "__main__":
     main()
