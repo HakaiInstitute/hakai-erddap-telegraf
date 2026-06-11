@@ -18,9 +18,9 @@ sentry_sdk.init(
 
 # @monitor(monitor_slug='hakai-erddap-telegraf-checkin')
 def main():
-    check_in_id = capture_checkin(
+    capture_checkin(
         monitor_slug="hakai-erddap-telegraf-checkin",
-        status=MonitorStatus.IN_PROGRESS,
+        status=MonitorStatus.OK,
     )
     url = os.environ.get(
         'GA_URL', 'http://www.google-analytics.com/mp/collect')
@@ -43,7 +43,6 @@ def main():
         sys.stdout.write(x.text)
     capture_checkin(
         monitor_slug="hakai-erddap-telegraf-checkin",
-        check_in_id=check_in_id,
         status=MonitorStatus.OK,
     )
     sentry_sdk.flush()
