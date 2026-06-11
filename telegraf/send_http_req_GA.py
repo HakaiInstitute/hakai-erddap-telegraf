@@ -12,12 +12,13 @@ from sentry_sdk.crons.consts import MonitorStatus
 load_dotenv(Path(__file__).parent / ".env", override=False)
 load_dotenv(override=False)
 
-sentry_sdk.init(
-    send_default_pii=True,
-)
+
 
 # @monitor(monitor_slug='hakai-erddap-telegraf-checkin')
 def main():
+    sentry_sdk.init(
+        send_default_pii=True,
+    )
     capture_checkin(
         monitor_slug="hakai-erddap-telegraf-checkin",
         status=MonitorStatus.OK,
@@ -41,10 +42,7 @@ def main():
         }
         x = requests.post(full_url, json=json_obj, headers=headers)
         sys.stdout.write(x.text)
-    capture_checkin(
-        monitor_slug="hakai-erddap-telegraf-checkin",
-        status=MonitorStatus.OK,
-    )
+    
     sentry_sdk.flush()
 
 if __name__ == "__main__":
