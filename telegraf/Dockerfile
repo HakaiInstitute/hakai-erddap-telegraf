@@ -10,7 +10,7 @@ RUN apt-get -q -y update \
   && DEBIAN_FRONTEND=noninteractive apt-get -q clean \
   && rm -rf /var/lib/apt/lists/*
 
-RUN pip install --no-cache-dir --upgrade sentry-sdk
+RUN pip install --no-cache-dir sentry-sdk --break-system-packages
 
 ADD ./send_http_req_GA.py /telegraf/send_http_req_GA.py
 
