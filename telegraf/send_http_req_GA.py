@@ -2,8 +2,12 @@ import sys
 import requests
 import json
 import os
+from dotenv import load_dotenv
 import sentry_sdk
 from sentry_sdk.crons import monitor
+
+load_dotenv(Path(__file__).parent / ".env", override=False)
+load_dotenv(override=False)
 
 sentry_sdk.init(
     send_default_pii=True,

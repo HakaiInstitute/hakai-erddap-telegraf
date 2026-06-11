@@ -6,6 +6,7 @@ RUN apt-get -q -y update \
   python3 \
   python3-requests \
   python3-pip \
+  python3-dotenv \
   incron \
   && DEBIAN_FRONTEND=noninteractive apt-get -q clean \
   && rm -rf /var/lib/apt/lists/*
