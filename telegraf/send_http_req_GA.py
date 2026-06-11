@@ -17,6 +17,7 @@ load_dotenv(override=False)
 # @monitor(monitor_slug='hakai-erddap-telegraf-checkin')
 def main():
     sentry_sdk.init(
+        debug=True,
         send_default_pii=True,
     )
     capture_checkin(
