@@ -1,4 +1,4 @@
-FROM docker.io/telegraf:latest
+FROM docker.io/telegraf:1.38
 
 RUN apt-get -q -y update \
   && DEBIAN_FRONTEND=noninteractive apt-get -q -y upgrade \
